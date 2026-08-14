@@ -1,72 +1,115 @@
 import { OpenMeteoResponse } from "@/types/OpenMeteoResponse";
-import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import fetchMeteoWeather from "./fetchMeteoWeather";
+import fetchMeteoWeather from "@/utils/fetchMeteoWeather";
+import getGeocoding from "@/utils/getGeocoding";
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useState } from "react";
+import { ScrollView, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ClearDayIcon from "../assets/weather-icons/scattered-thunderstorms-day.svg";
 
-export const App = () => {
-  const [weather, setWeather] = useState<OpenMeteoResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const index = () => {
+  const [inputCity, setInputCity] = useState<string>("");
+  const [cityWeatherInfo, setCityWeatherInfo] =
+    useState<null | OpenMeteoResponse>(null);
+  const [cityName, setCityName] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    let cancelled = false;
+  const handleEndEditing = async (city: string) => {
+    setLoading(true);
+    const trimmedCity = city.trim();
 
-    const loadWeather = async () => {
-      try {
-        const data = await fetchMeteoWeather();
-        if (!cancelled) {
-          setWeather(data);
-        }
-      } catch (e) {
-        if (!cancelled) {
-          setError(e instanceof Error ? e.message : "Unknown error");
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    };
+    if (!trimmedCity) {
+      setCityName(null);
+      setCityWeatherInfo(null);
+      setLoading(false);
+      return;
+    }
 
-    loadWeather();
+    const geoData = await getGeocoding(trimmedCity);
+    if (!geoData?.results?.[0]) {
+      console.warn("Brak wyników geokodowania");
+      setCityName(null);
+      setCityWeatherInfo(null);
+      setLoading(false);
+      return;
+    }
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    const { latitude, longitude, name } = geoData.results[0];
+    setCityName(name);
 
-  if (loading) return <Text className="text-xl">Loading weather...</Text>;
-  if (error) return <Text className="text-xl">Error: {error}</Text>;
-  if (!weather) return null;
-
-  const { current, daily } = weather;
+    try {
+      const weatherData = await fetchMeteoWeather(latitude, longitude);
+      setCityWeatherInfo(weatherData);
+    } catch (e) {
+      console.error("Błąd pobierania pogody:", e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <View
-      className={`${current.is_day ? "bg-yellow-400" : "bg-blue-500"} p-5 flex-1`}>
-      <Text className="text-2xl">Current weather (Warsaw area)</Text>
-      <Text className="text-xl">Weather code: {current.weather_code}</Text>
-      <Text className="text-xl">Temperature: {current.temperature_2m} °C</Text>
-      <Text className="text-xl">
-        Feels like: {current.apparent_temperature} °C
-      </Text>
-      <Text className="text-xl">
-        Wind: {current.wind_speed_10m} m/s, direction:{" "}
-        {current.wind_direction_10m}°
-      </Text>
-      <Text className="text-xl">Pressure: {current.surface_pressure} hPa</Text>
+    <LinearGradient
+      className="flex-1 px-5"
+      colors={["#fefce8", "#fef08a"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}>
+      <SafeAreaView>
+        <ScrollView>
+          <TextInput
+            className="border rounded-full px-5 text-xl"
+            value={inputCity}
+            onChangeText={setInputCity}
+            onEndEditing={(event) => {
+              handleEndEditing(event.nativeEvent.text);
+            }}
+          />
 
-      <Text className="text-2xl mt-10">7-day forecast</Text>
-      <View>
-        {daily.time.map((day, i) => (
-          <Text className="text-xl" key={day}>
-            {day}: {daily.temperature_2m_min[i]} – {daily.temperature_2m_max[i]}{" "}
-            °C
-          </Text>
-        ))}
-      </View>
-    </View>
+          <View className="w-[256px] h-[219px] bg-blue-300 items-center justify-center mx-auto">
+            <ClearDayIcon width={256} height={219} viewBox="0 0 56 48" />
+          </View>
+
+          {!cityWeatherInfo ? (
+            loading ? (
+              <Text className="text-xl">Searching...</Text>
+            ) : (
+              <Text className="text-xl">Enter a city to see weather</Text>
+            )
+          ) : (
+            <View>
+              <Text className="text-3xl">{cityName}</Text>
+              <Text className="text-xl">
+                Temperature: {cityWeatherInfo.current.temperature_2m}{" "}
+                {cityWeatherInfo.current_units.temperature_2m}
+              </Text>
+              <Text className="text-xl">
+                Feels like: {cityWeatherInfo.current.apparent_temperature}{" "}
+                {cityWeatherInfo.current_units.apparent_temperature}
+              </Text>
+              <Text className="text-xl">
+                Wind: {cityWeatherInfo.current.wind_speed_10m}{" "}
+                {cityWeatherInfo.current_units.wind_speed_10m}, direction:{" "}
+                {cityWeatherInfo.current.wind_direction_10m}
+                {cityWeatherInfo.current_units.wind_direction_10m}
+              </Text>
+              <Text className="text-xl">
+                Pressure: {cityWeatherInfo.current.surface_pressure}{" "}
+                {cityWeatherInfo.current_units.surface_pressure}
+              </Text>
+
+              <Text className="text-2xl mt-6">7-day forecast</Text>
+              {cityWeatherInfo.daily.time.map((day: string, i: number) => (
+                <Text className="text-lg" key={day}>
+                  {day}: {cityWeatherInfo.daily.temperature_2m_min[i]} –{" "}
+                  {cityWeatherInfo.daily.temperature_2m_max[i]}{" "}
+                  {cityWeatherInfo.daily_units.temperature_2m_max}
+                </Text>
+              ))}
+            </View>
+          )}
+        </ScrollView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
-export default App;
+export default index;
