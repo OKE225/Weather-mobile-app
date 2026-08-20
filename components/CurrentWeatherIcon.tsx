@@ -29,7 +29,7 @@ interface Props {
   weatherCode: number;
 }
 
-const WeatherIcon = ({ weatherCode }: Props) => {
+const CurrentWeatherIcon = ({ weatherCode }: Props) => {
   let iconFromCode = null;
 
   switch (weatherCode) {
@@ -127,4 +127,4 @@ const WeatherIcon = ({ weatherCode }: Props) => {
   );
 };
 
-export default WeatherIcon;
+export default CurrentWeatherIcon;

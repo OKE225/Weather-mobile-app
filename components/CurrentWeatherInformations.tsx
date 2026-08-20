@@ -5,7 +5,8 @@ import { BlurView } from "expo-blur";
 import React from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
-import WeatherIcon from "./WeatherIcon";
+import CurrentWeatherIcon from "./CurrentWeatherIcon";
+import SevenDayForecast from "./SevenDayForecast";
 
 interface Props {
   name: string;
@@ -13,7 +14,7 @@ interface Props {
   cityId?: string;
 }
 
-const WeatherInformations = ({ name, currentCity, cityId }: Props) => {
+const CurrentWeatherInformations = ({ name, currentCity, cityId }: Props) => {
   const { toggleFavorite, isFavorite } = useFavorites();
 
   const favoriteId = cityId ?? name;
@@ -31,7 +32,7 @@ const WeatherInformations = ({ name, currentCity, cityId }: Props) => {
       contentContainerClassName="pb-[150px] pt-4"
       showsVerticalScrollIndicator={false}>
       <View className="items-center mb-6">
-        <WeatherIcon weatherCode={currentCity.current.weather_code} />
+        <CurrentWeatherIcon weatherCode={currentCity.current.weather_code} />
       </View>
 
       <BlurView
@@ -99,32 +100,11 @@ const WeatherInformations = ({ name, currentCity, cityId }: Props) => {
             </View>
           </View>
 
-          <Text className="mb-3 text-2xl font-bold text-zinc-900">
-            7-day forecast
-          </Text>
-
-          <View className="gap-3">
-            {currentCity.daily.time.map((day: string, i: number) => (
-              <View
-                key={day}
-                className="flex-row items-center justify-between rounded-2xl border border-white/60 bg-white/35 px-4 py-3">
-                <Text className="text-base font-medium text-zinc-800">
-                  {day}
-                </Text>
-
-                <Text className="text-base font-semibold text-zinc-700">
-                  {currentCity.daily.temperature_2m_min[i]}
-                  {currentCity.daily_units.temperature_2m_min} –{" "}
-                  {currentCity.daily.temperature_2m_max[i]}
-                  {currentCity.daily_units.temperature_2m_max}
-                </Text>
-              </View>
-            ))}
-          </View>
+          <SevenDayForecast currentWeather={currentCity} />
         </View>
       </BlurView>
     </ScrollView>
   );
 };
 
-export default WeatherInformations;
+export default CurrentWeatherInformations;

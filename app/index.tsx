@@ -1,18 +1,13 @@
+import AnimatedWeatherBackground from "@/components/AnimatedWeatherBackground";
+import CurrentWeatherInformations from "@/components/CurrentWeatherInformations";
 import SearchInput from "@/components/SearchInput";
-import WeatherInformations from "@/components/WeatherInformations";
 import { OpenMeteoResponse } from "@/types/OpenMeteoResponse";
 import fetchMeteoWeather from "@/utils/fetchMeteoWeather";
 import getGeocoding from "@/utils/getGeocoding";
-import setBackgroundColor from "@/utils/setBackgroundColor";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { BlurView } from "expo-blur";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Index = () => {
@@ -21,27 +16,6 @@ const Index = () => {
     useState<OpenMeteoResponse | null>(null);
   const [cityName, setCityName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
-  const bgColorHex = "#d4d4d8";
-
-  const bgColor = useSharedValue(bgColorHex);
-
-  const animatedBackgroundStyle = useAnimatedStyle(() => ({
-    backgroundColor: bgColor.value,
-  }));
-
-  useEffect(() => {
-    const code = cityWeatherInfo?.current.weather_code;
-
-    if (code == null) {
-      bgColor.value = withTiming(bgColorHex, { duration: 500 });
-      return;
-    }
-
-    bgColor.value = withTiming(setBackgroundColor(code), {
-      duration: 500,
-    });
-  }, [cityWeatherInfo?.current.weather_code]);
 
   const handleInputChange = (text: string) => {
     setInputCity(text);
@@ -92,17 +66,14 @@ const Index = () => {
   };
 
   return (
-    <Animated.View
-      className="flex-1"
-      style={[{ flex: 1 }, animatedBackgroundStyle]}>
+    <AnimatedWeatherBackground
+      weather_code={cityWeatherInfo?.current.weather_code}>
       <SafeAreaView className="flex-1 px-5 mt-2">
-        <View>
-          <SearchInput
-            value={inputCity}
-            onChangeText={handleInputChange}
-            handleEndEditing={handleEndEditing}
-          />
-        </View>
+        <SearchInput
+          value={inputCity}
+          onChangeText={handleInputChange}
+          handleEndEditing={handleEndEditing}
+        />
 
         <View className="flex-1 pt-4">
           {!cityWeatherInfo && !loading && (
@@ -157,14 +128,14 @@ const Index = () => {
           )}
 
           {cityWeatherInfo && !loading && (
-            <WeatherInformations
+            <CurrentWeatherInformations
               name={cityName}
               currentCity={cityWeatherInfo}
             />
           )}
         </View>
       </SafeAreaView>
-    </Animated.View>
+    </AnimatedWeatherBackground>
   );
 };
 
