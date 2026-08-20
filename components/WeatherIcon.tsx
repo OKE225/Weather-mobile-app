@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, View } from "react-native";
 
+import { BlurView } from "expo-blur";
 import Clear from "../assets/icons/clear.png";
 import HeavyDrizzle from "../assets/icons/dense-drizzle.png";
 import IcyDrizzle from "../assets/icons/dense-freezing-drizzle.png";
@@ -107,12 +108,21 @@ const WeatherIcon = ({ weatherCode }: Props) => {
   }
 
   return (
-    <View>
-      <Image
-        source={iconFromCode}
-        className="w-[128px] h-[128px] mx-auto drop-shadow-2xl shadow shadow-color-black/30 shadow-offset-y-4 shadow-radius-8 elevation-8"
-        resizeMode="contain"
-      />
+    <View className="my-4 items-center">
+      <BlurView
+        intensity={30}
+        tint="light"
+        className="overflow-hidden rounded-full border border-white/70">
+        <View className="h-40 w-40 items-center justify-center rounded-full bg-white/30">
+          <View className="h-32 w-32 items-center justify-center rounded-full border border-white/50 bg-white/20">
+            <Image
+              source={iconFromCode}
+              className="h-28 w-28"
+              resizeMode="contain"
+            />
+          </View>
+        </View>
+      </BlurView>
     </View>
   );
 };
