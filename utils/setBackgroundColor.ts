@@ -1,5 +1,5 @@
 const setBackgroundColor = (weather_code: number): string => {
-  let bgColor: string = "#e4e4e7";
+  let bgColor: string = "#d4d4d8";
 
   switch (weather_code) {
     case 0:
