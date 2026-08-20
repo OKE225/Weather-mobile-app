@@ -29,7 +29,7 @@ const SearchInput = ({ value, onChangeText, handleEndEditing }: Props) => {
         <TextInput
           className="flex-1 px-3 py-3 text-lg text-zinc-900"
           value={value}
-          placeholder="Wyszukaj miasto..."
+          placeholder="Search city..."
           placeholderTextColor="#71717a"
           onChangeText={onChangeText}
           onEndEditing={handleSearch}

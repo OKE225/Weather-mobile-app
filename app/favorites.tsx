@@ -36,7 +36,7 @@ const Favorites = () => {
 
           <View className="flex-row gap-3 mt-5">
             <View className="flex-1 rounded-2xl border border-white/60 bg-white/35 p-4">
-              <Text className="text-sm text-zinc-500">Temperatura</Text>
+              <Text className="text-sm text-zinc-500">Temperature</Text>
 
               <Text className="mt-1 text-xl font-bold text-zinc-900">
                 {currentWeather.temperature_2m} {units.temperature_2m}
@@ -44,7 +44,7 @@ const Favorites = () => {
             </View>
 
             <View className="flex-1 rounded-2xl border border-white/60 bg-white/35 p-4">
-              <Text className="text-sm text-zinc-500">Odczuwalna</Text>
+              <Text className="text-sm text-zinc-500">Feels like</Text>
 
               <Text className="mt-1 text-xl font-bold text-zinc-900">
                 {currentWeather.apparent_temperature}{" "}
@@ -64,12 +64,12 @@ const Favorites = () => {
         tint="light"
         className="mb-5 mt-2 overflow-hidden rounded-3xl border border-white/60">
         <View className="bg-white/25 px-5 py-4">
-          <Text className="text-3xl font-bold text-zinc-900">Ulubione</Text>
+          <Text className="text-3xl font-bold text-zinc-900">Favorites</Text>
 
           <Text className="mt-1 text-base text-zinc-700">
             {favorites.length === 0
-              ? "Nie masz jeszcze zapisanych miast"
-              : `Zapisane lokalizacje: ${favorites.length}`}
+              ? "You don't have any saved cities yet"
+              : `Saved locations: ${favorites.length}`}
           </Text>
         </View>
       </BlurView>
@@ -86,12 +86,12 @@ const Favorites = () => {
               </View>
 
               <Text className="mt-5 text-center text-2xl font-bold text-zinc-900">
-                Brak ulubionych
+                No favorites yet
               </Text>
 
               <Text className="mt-2 text-center text-base leading-6 text-zinc-700">
-                Wyszukaj miasto i kliknij ikonę gwiazdki, aby dodać je do
-                ulubionych.
+                Search for a city and tap the star icon to add it to your
+                favorites
               </Text>
             </View>
           </BlurView>

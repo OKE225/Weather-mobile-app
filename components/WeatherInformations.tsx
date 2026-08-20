@@ -60,7 +60,7 @@ const WeatherInformations = ({ name, currentCity, cityId }: Props) => {
 
           <View className="mb-5 rounded-3xl border border-white/60 bg-white/35 p-4">
             <Text className="text-sm font-medium uppercase tracking-wider text-zinc-500">
-              Aktualna temperatura
+              Current temperature
             </Text>
 
             <Text className="mt-1 text-5xl font-bold text-zinc-900">
@@ -72,26 +72,26 @@ const WeatherInformations = ({ name, currentCity, cityId }: Props) => {
             </Text>
 
             <Text className="mt-2 text-lg text-zinc-700">
-              Odczuwalna: {currentCity.current.apparent_temperature}{" "}
+              Feels like: {currentCity.current.apparent_temperature}{" "}
               {currentCity.current_units.apparent_temperature}
             </Text>
           </View>
 
           <View className="mb-6 flex-row flex-wrap justify-between gap-3">
             <View className="min-w-[47%] flex-1 rounded-2xl border border-white/60 bg-white/35 p-4">
-              <Text className="text-sm text-zinc-500">Wiatr</Text>
+              <Text className="text-sm text-zinc-500">Wind</Text>
               <Text className="mt-1 text-lg font-semibold text-zinc-800">
                 {currentCity.current.wind_speed_10m}{" "}
                 {currentCity.current_units.wind_speed_10m}
               </Text>
               <Text className="text-sm text-zinc-600">
-                Kierunek: {currentCity.current.wind_direction_10m}
+                Direction: {currentCity.current.wind_direction_10m}
                 {currentCity.current_units.wind_direction_10m}
               </Text>
             </View>
 
             <View className="min-w-[47%] flex-1 rounded-2xl border border-white/60 bg-white/35 p-4">
-              <Text className="text-sm text-zinc-500">Ciśnienie</Text>
+              <Text className="text-sm text-zinc-500">Pressure</Text>
               <Text className="mt-1 text-lg font-semibold text-zinc-800">
                 {currentCity.current.surface_pressure}{" "}
                 {currentCity.current_units.surface_pressure}
@@ -100,7 +100,7 @@ const WeatherInformations = ({ name, currentCity, cityId }: Props) => {
           </View>
 
           <Text className="mb-3 text-2xl font-bold text-zinc-900">
-            Prognoza na 7 dni
+            7-day forecast
           </Text>
 
           <View className="gap-3">

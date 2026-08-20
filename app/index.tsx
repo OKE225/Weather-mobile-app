@@ -121,12 +121,12 @@ const Index = () => {
                   </View>
 
                   <Text className="mt-5 text-center text-2xl font-bold text-zinc-900">
-                    Sprawdź pogodę
+                    Check the weather
                   </Text>
 
                   <Text className="mt-2 text-center text-base leading-6 text-zinc-700">
-                    Wpisz nazwę miasta, aby zobaczyć aktualną pogodę oraz
-                    prognozę na najbliższe dni.
+                    Enter a city name to see the current weather and forecast
+                    for the next few days
                   </Text>
                 </View>
               </BlurView>
@@ -145,11 +145,11 @@ const Index = () => {
                   </View>
 
                   <Text className="mt-5 text-xl font-bold text-zinc-900">
-                    Wyszukiwanie miasta...
+                    Searching for a city...
                   </Text>
 
                   <Text className="mt-2 text-center text-base text-zinc-700">
-                    Pobieramy najnowsze dane pogodowe.
+                    We’re fetching the latest weather data
                   </Text>
                 </View>
               </BlurView>
