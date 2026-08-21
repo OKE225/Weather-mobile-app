@@ -1,8 +1,34 @@
-# Welcome to your Expo app 👋
+# ⛅ Weather - _mobile application_
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a weather application built with React Native and Expo that provides current weather information and a 7-day forecast for any city in the world. The app uses two APIs from Open-Meteo: the Geocoding API to convert city names into geographic coordinates, and the Weather API to fetch real-time weather data for those coordinates. When you type a city name into the search input, the app retrieves the location data and displays detailed weather information including current temperature, feels-like temperature, wind speed and direction, atmospheric pressure, and a weather icon that matches the current conditions
 
-## Get started
+The user interface features a modern glass design with translucent cards, blur effects, and subtle white borders that create a clean and premium look the application. The background color changes dynamically based on the current weather conditions of the displayed city, with smooth animated transitions between different weather states. Users can add any city to their favorites list by tapping the star icon, and all favorite locations are saved to AsyncStorage so they persist after closing and reopening the app. The Favorites tab displays all saved cities with their current weather information and allows users to remove locations from the list with a single tap
+
+<p align="center">
+  <img src="./assets/docs/home.png" alt="Home screen" width="24.5%" />
+  <img src="./assets/docs/sunny.png" alt="Sunny weather" width="24.5%" />
+  <img src="./assets/docs/rainy.png" alt="Rainy weather" width="24.5%" />
+  <img src="./assets/docs/thunderstorm.png" alt="Thunderstorm weather" width="24.5%" />
+</p>
+
+## ⚙️ Technologies
+
+[![tech stack](https://skillicons.dev/icons?i=react,ts,tailwind,js,svg,androidstudio,html)](https://skillicons.dev)
+
+## ⭐ Features
+
+- Search for any city by name and get instant weather information
+- Displays current temperature, feels-like temperature, wind, and atmospheric pressure
+- Shows a 7-day weather forecast
+- Dynamic weather icons that change based on current weather
+- Animated background that adapts to the weather of the searched city
+- Glass design with blur effects, translucent cards, and modern UI elements
+- Add and remove cities to/from favorites list
+- Storage of favorite locations using AsyncStorage
+- Two-tab navigation with Home and Favorites screens
+- Empty state and loading state views for better user experience
+
+## 🚦 Get Started
 
 1. Install dependencies
 
@@ -16,35 +42,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## 🔎 See Also
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [My Website](https://pj-portfolio-cv.vercel.app)
+- [My GitHub profile](https://github.com/OKE225)
