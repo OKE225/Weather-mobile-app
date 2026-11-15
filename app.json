@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "template-nativewind",
-    "slug": "template-nativewind",
+    "name": "Weather Forecast",
+    "slug": "weather-mobile-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/app-icon.png",
     "scheme": "fooddelivery",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -12,18 +12,17 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
-      },
+      // "adaptiveIcon": {
+      //   "foregroundImage": "./assets/images/partly-sunny.png",
+      //   "backgroundImage": "./assets/images/app-icon-background.png"
+      // },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.oke225.weathermobileapp"
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png",
+      "favicon": "./assets/images/app-icon.png",
       "bundler": "metro"
     },
     "plugins": [
@@ -31,10 +30,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
+          "image": "./assets/images/app-icon.png",
+          "imageWidth": 225,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "#bbe1fc",
           "dark": {
             "backgroundColor": "#000000"
           }
@@ -44,6 +43,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c6dcb371-7f64-4dc2-8012-1e08a6f666e6"
+      }
     }
   }
 }
